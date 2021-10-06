@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import UserProfile from './components/UserProfile'
+import Layout from './components/Layout'
+import Navigationbar from './components/Navigationbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 class App extends Component{
   constructor(props){
     super(props);
@@ -20,8 +21,12 @@ class App extends Component{
       return null;
     }
     return (
-      
-      <UserProfile user={this.state.profile} />
+      <div>
+        <Navigationbar/>
+        <Layout>
+          <UserProfile user={this.state.profile} />
+        </Layout>
+      </div>
     );
   }
 }
