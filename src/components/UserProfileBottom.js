@@ -8,12 +8,10 @@ import './UserProfileMiddle.css';
 class UserProfileBottom extends Component{
     render(){
         const {user} = this.props;
-        const style={
-            width:"500px"
-        }
+
         return (
-        <Container  className="justify-content-md-center">
-            <Row className="justify-content-md-center" style={style} >
+        <Container  className="d-flex justify-content-center">
+            <Row className="justify-content-md-center" >
                 <Col >
                     <UserProfilePointsCircle description="Resistencia" data={user.stamina_points} color="yellow"/>
 
