@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import UserProfile from './components/UserProfile'
+import UserProfile from './components/profile/UserProfile'
 import Layout from './components/Layout'
 import Navigationbar from './components/Navigationbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
