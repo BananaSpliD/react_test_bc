@@ -24,8 +24,9 @@ class App extends Component{
       <div>
         <Navigationbar/>
         <Layout>
-          <UserProfile user={this.state.profile} />
+          <UserProfile user={this.state.profile} lessons={this.state.training_classes}  instructors={this.state.instructors}/>          
         </Layout>
+
       </div>
     );
   }
