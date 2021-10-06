@@ -1,6 +1,7 @@
 import { Component } from "react";
 import UserProfileHeader from "./UserProfileHeader"
 import UserProfileMiddle from "./UserProfileMiddle"
+import UserProfileLessons from "./UserProfileLessons"
 import UserProfileBottom from "./UserProfileBottom"
 import Container from 'react-bootstrap/Container';
 
@@ -9,7 +10,8 @@ import "./UserProfile.css"
 class UserProfile extends Component{
     render(){
         const user=this.props.user;
-        console.log(user);
+        const lessons=this.props.lessons;
+        const instructors= this.props.instructors;
         return (
             <Container>
                 <UserProfileHeader user={user}/>
@@ -18,6 +20,7 @@ class UserProfile extends Component{
                 <hr/>
                 <UserProfileBottom user={user}/>
                 <hr/>
+                <UserProfileLessons lessons={lessons} instructors={instructors}/>
             </Container>
         )
     }

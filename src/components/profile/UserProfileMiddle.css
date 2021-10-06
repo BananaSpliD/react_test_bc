@@ -5,11 +5,11 @@
     color:white;
     font-size: 50px;
 }
-div > span:nth-child(2){
+.userMiddleInfo > span:nth-child(2){
     color:grey;
     font-size: 15px;
 }
-div > span:nth-child(1){
+.userMiddleInfo > span:nth-child(1){
     color:white;
     font-weight: bold;
     font-size: 20px;
