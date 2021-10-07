@@ -5,14 +5,17 @@ import Container from 'react-bootstrap/Container'
 import './UserProfileLessonsListComponent.css'
 //Componente que contiene el listado de las clases
 class UserProfileLessonsListComponent extends Component{
-    
-    render(){
-        console.log(this.props.id)
-        const {id,lesson,instructor}= this.props;
-        let date = new Date(lesson.published); // create Date object
+    //Función para transformar de milisegundos a una fecha en formato :3 sept 1995 
+    //@param milliseconds= millisegundos en formato fecha
+    transformMillisecondsToDate(milliseconds){
+        let date = new Date(milliseconds); // create Date object
         let options = { year: 'numeric', month: 'short', day: 'numeric' };
-        let parsedDate=date.toLocaleDateString("es-ES",options);
-        
+        return date.toLocaleDateString("es-ES",options);
+    }
+    render(){
+        const {id,lesson,instructor}= this.props;
+        let parsedDate=this.transformMillisecondsToDate(lesson.published);
+
         return (<Container key={id}>
                <Row >
 
