@@ -3,7 +3,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import './Navbar.css';
 import {Link} from 'react-router-dom'
-import {useLocation } from 'react-router-dom';
 
 //Componente de navbar
 class Navigationbar extends Component{

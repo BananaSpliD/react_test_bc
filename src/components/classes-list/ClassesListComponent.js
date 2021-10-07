@@ -3,6 +3,7 @@ import {Card} from 'react-bootstrap'
 import {Container,Row,Stack,Col} from 'react-bootstrap'
 import './ClassesListComponent.css'
 import {transformMillisecondsToDate} from '../../Helpers'
+import {Link} from "react-router-dom"
 //Hook para mostrar la dificultad
 //@param level el nivel de dificultad
 const LevelBars=(level)=>{    
@@ -42,37 +43,39 @@ class ClassesListComponent extends Component{
         const {lesson,instructor}= this.props;
         let parsedDate=transformMillisecondsToDate(lesson.published, {month: 'short', day: 'numeric' });
         return (
-        <Card className="lessonsCard">
-            <Card.Img variant="top" src={lesson.image} />
-            <Card.Title className="lessonsCardTitle">
-                <Row className="justify-content-md-center">
-                        <Container>
-                            <Row>
-                                <span className="lessonListCardsLesson">{lesson.name}</span>
-                            </Row>
-                            <Row >
-                                <span className="lessonListCardsInstructor">{instructor.name}</span>
-                            </Row>
-                        </Container>
-                    </Row>
+        <Link className="noHyperLink" to={{pathname:"lessons/"+lesson.id,state: { prevPath: "/lessons-list" }}}>
 
-            </Card.Title>
+            <Card className="lessonsCard">
+                <Card.Img variant="top" src={lesson.image} />
+                <Card.Title className="lessonsCardTitle">
+                    <Row className="justify-content-md-center">
+                            <Container>
+                                <Row>
+                                    <span className="lessonListCardsLesson">{lesson.name}</span>
+                                </Row>
+                                <Row >
+                                    <span className="lessonListCardsInstructor">{instructor.name}</span>
+                                </Row>
+                            </Container>
+                        </Row>
 
-            <Card.Body className="cardBodyPadding">
-                    <Row>
-                        <Col>
-                            <LevelBars component={'span'} level={lesson.level} />
-                        </Col>
-                        <Col className="text-center">
-                           {parsedDate}
-                        </Col>
-                        <Col>
-                            <Duration component={'span'} seconds={lesson.duration} />
-                        </Col>
-                    </Row>
-            </Card.Body>
-        </Card>
-        
+                </Card.Title>
+
+                <Card.Body className="cardBodyPadding">
+                        <Row>
+                            <Col>
+                                <LevelBars component={'span'} level={lesson.level} />
+                            </Col>
+                            <Col className="text-center">
+                            {parsedDate}
+                            </Col>
+                            <Col>
+                                <Duration component={'span'} seconds={lesson.duration} />
+                            </Col>
+                        </Row>
+                </Card.Body>
+            </Card>
+        </Link>
         )
 
     }

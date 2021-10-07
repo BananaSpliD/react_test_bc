@@ -15,11 +15,7 @@ class App extends Component{
     .then(response => response.json())
     .then(data => {
       this.setState({data});      
-      console.log(this.state,"aqui");
       this.setState({loaded:true});
-      
-      
-      
     });
   }
   state={loaded:false};

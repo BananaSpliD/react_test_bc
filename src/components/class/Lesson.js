@@ -1,25 +1,39 @@
 import {Component} from 'react'
 import {Container,Row,Col,Button} from 'react-bootstrap';
-import { Link,useParams } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import {findInstructor,findLesson} from "../../Helpers"
+import "./Lesson.css"
 class Lesson extends Component{
     render(){
-        const prevPath=this.props.prevPath?this.props.prevPath:"/";
-        console.log(this.props)
+        const {lessons,instructors}=this.props;
+        const prevPath=this.props.location.state.prevPath?this.props.location.state.prevPath:"/";
+        const lesson=findLesson(this.props.match.params.idLesson,lessons);
+        const instructor=findInstructor(instructors,lesson.instructor_id);
         return(
         <Container >
         <Row >
-            <Col sm={2} >
+            <Col sm={1} className="align-items-center d-flex " >
                 <Link to={prevPath}>
-                    <Button>
-                        {"<-"}
+                    <Button variant="secondary" >
+                        {"<"}
                     </Button>
                 </Link>
             </Col>
-            <Col sm={10}>
-
+            <Col sm={11}>
+                <Row >
+                    <h5 className="classInfoName">{lesson.name}</h5>
+                </Row>
+                <Row>
+                    <h6 className="classInfoNameInstructor">{instructor.name}</h6>
+                </Row>
             </Col>
             
+        </Row>
+        <Row style={{marginTop:"15px"}}>
+            <div id="player">
+
+            </div>
+
         </Row>
     </Container>)
     }
