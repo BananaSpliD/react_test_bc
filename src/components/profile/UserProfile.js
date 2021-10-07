@@ -9,16 +9,15 @@ import "./UserProfile.css"
 //Componente que engloba la página de inicio
 class UserProfile extends Component{
     render(){
-        const user=this.props.user;
-        const lessons=this.props.lessons;
-        const instructors= this.props.instructors;
+        const {user,lessons,instructors}=this.props;
         return (
             <Container>
-                <UserProfileHeader user={user}/>
+                <UserProfileHeader name={user.name} avatar={user.avatar}/>
                 <hr/>
-                <UserProfileMiddle user={user}/>
+                <UserProfileMiddle level={user.level} perseverance={user.perseverance} total_points={user.total_points}/>
                 <hr/>
-                <UserProfileBottom user={user}/>
+                <UserProfileBottom stamina_points={user.stamina_points} strength_points={user.strength_points} flexiblity_points={user.flexiblity_points} mind_points ={user.mind_points}/>
+
                 <hr/>
                 <UserProfileLessons lessons={lessons} instructors={instructors}/>
             </Container>

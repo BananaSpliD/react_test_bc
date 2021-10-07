@@ -7,23 +7,23 @@ import './UserProfileMiddle.css';
 //Contiene la parte de abajo de la página del perfil de usuario con los círculos de los puntos de resistencia, fuerza, flexibilidad y mente
 class UserProfileBottom extends Component{
     render(){
-        const {user} = this.props;
+        const {stamina_points,strength_points,flexiblity_points,mind_points} = this.props;
 
         return (
         <Container  className="d-flex justify-content-center">
             <Row className="justify-content-md-center" >
                 <Col >
-                    <UserProfilePointsCircle description="Resistencia" data={user.stamina_points} color="yellow"/>
+                    <UserProfilePointsCircle description="Resistencia" data={stamina_points} color="yellow"/>
 
                 </Col>
                 <Col >
-                    <UserProfilePointsCircle description="Fuerza" data={user.strength_points} color="#ff4646"/>
+                    <UserProfilePointsCircle description="Fuerza" data={strength_points} color="#ff4646"/>
                 </Col>
                 <Col > 
-                    <UserProfilePointsCircle description="Flexibilidad" data={user.flexiblity_points} color="#00ff00"/>
+                    <UserProfilePointsCircle description="Flexibilidad" data={flexiblity_points} color="#00ff00"/>
                 </Col>
                 <Col >
-                   <UserProfilePointsCircle description="Mente" data={user.mind_points} color="#0dcaf0"/>
+                   <UserProfilePointsCircle description="Mente" data={mind_points} color="#0dcaf0"/>
   
                 </Col>
             </Row>

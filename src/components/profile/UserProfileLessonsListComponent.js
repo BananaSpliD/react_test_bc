@@ -3,16 +3,14 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import './UserProfileLessonsListComponent.css'
+import {transformMillisecondsToDate} from '../../Helpers'
 //Componente que contiene el listado de las clases
 class UserProfileLessonsListComponent extends Component{
-    
+
     render(){
-        console.log(this.props.id)
         const {id,lesson,instructor}= this.props;
-        let date = new Date(lesson.published); // create Date object
-        let options = { year: 'numeric', month: 'short', day: 'numeric' };
-        let parsedDate=date.toLocaleDateString("es-ES",options);
-        
+        let parsedDate=transformMillisecondsToDate(lesson.published);
+
         return (<Container key={id}>
                <Row >
 
