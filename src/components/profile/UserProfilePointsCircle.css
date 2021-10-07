@@ -1,0 +1,14 @@
+.userBottomInfoPoints{
+    align-items:center;
+}
+div > span:nth-child(2){
+    color:grey;
+    font-size: 15px;
+}
+.userBottomInfoPoints > div{
+    color:white;
+    font-weight: bold;
+    font-size: 30px;
+    text-shadow: 1px 1px 2px black;
+
+}

@@ -6,8 +6,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.noHyperLink{
+  text-decoration: none;
+  color: black;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+h3 {
+  color:white;
+  font-weight: bold;
+  font-size: 30px;
+}
+span {
+  color: white;
+  font-weight: bold;
 }

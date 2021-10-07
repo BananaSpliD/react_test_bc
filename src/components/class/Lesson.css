@@ -1,0 +1,13 @@
+#player{
+    width: 100%;
+    height: 500px;
+    background-color: black;
+}
+.classInfoName{
+    color:white;
+    font-size: 28px;
+}
+.classInfoNameInstructor{
+    color:white;
+    font-size: 16px;
+}

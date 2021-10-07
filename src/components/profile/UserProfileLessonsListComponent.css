@@ -1,0 +1,19 @@
+.lessonsCards{
+    background-color: #545454;
+    padding:10px;
+    height: 60px;
+}
+.lessonCardsRowLesson{
+    font-size: 15px;
+    font-weight: bold;
+    color:white;
+}
+.lessonCardsRowInstructor{
+    font-size:12px;
+    color:grey;
+}
+.lessonsDate{
+    font-size: 12px;
+    color:grey;
+    margin-top: 5px;
+}
