@@ -5,7 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Route,Switch} from 'react-router-dom'
 import ClassesPage from './components/classes-list/ClassesPage';
 import Lesson from './components/class/Lesson';
+import { findLessonIndex } from './Helpers';
 class App extends Component{
+  constructor(props){
+    super(props);
+    this.lessonFinished=this.lessonFinished.bind(this);
+  }
   componentDidMount(){
     this.initData();
   }
@@ -19,6 +24,15 @@ class App extends Component{
     });
   }
   state={loaded:false};
+
+  lessonFinished(lessonID){
+
+    const lessonIndex=findLessonIndex(lessonID,this.state.data.training_classes);
+    let lessons=this.state.data.training_classes;
+    lessons[lessonIndex]= {...lessons[lessonIndex],finished:true};
+    this.setState({training_classes:lessons});
+
+  }
   render(){    
     
     if(this.state.loaded===false){
@@ -30,7 +44,7 @@ class App extends Component{
         <Layout>
 
             <Switch>
-              <Route path="/lessons/:idLesson" render={(props) => <Lesson {...props} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors}/>}>
+              <Route path="/lessons/:idLesson" render={(props) => <Lesson {...props} lessonFinished={this.lessonFinished} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors}/>}>
               </Route>
               <Route path="/lessons-list">
 
