@@ -1,5 +1,4 @@
 #layout{
-    background-color: #151515 ;
     position: fixed;
     top: 0;
     left: 0;
@@ -10,4 +9,9 @@
     padding-top: 50px;
 
 }
-
+.layoutBgBlack{
+    background-color: #151515 ;
+}
+.layoutBgGrey{
+    background-color: #191c1e;
+}

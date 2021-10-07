@@ -3,18 +3,13 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import './UserProfileLessonsListComponent.css'
+import {transformMillisecondsToDate} from '../../Helpers'
 //Componente que contiene el listado de las clases
 class UserProfileLessonsListComponent extends Component{
-    //Función para transformar de milisegundos a una fecha en formato :3 sept 1995 
-    //@param milliseconds= millisegundos en formato fecha
-    transformMillisecondsToDate(milliseconds){
-        let date = new Date(milliseconds); // create Date object
-        let options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return date.toLocaleDateString("es-ES",options);
-    }
+
     render(){
         const {id,lesson,instructor}= this.props;
-        let parsedDate=this.transformMillisecondsToDate(lesson.published);
+        let parsedDate=transformMillisecondsToDate(lesson.published);
 
         return (<Container key={id}>
                <Row >
