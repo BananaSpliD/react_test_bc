@@ -3,20 +3,10 @@ import UserProfileLessonsListComponent from './UserProfileLessonsListComponent';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
+import { findInstructor } from '../../Helpers';
 //Componente que contiene el listado de las clases
 class UserProfileLessonsList extends Component{
-    //Dado una id de instructor, busca en el array el instructor con dicho ID
-    //@param instructors= array de instructores
-    //@param instructorID= ID del instructor
-    findInstructor(instructors, instructorID) {
-        for (let index = 0; index < instructors.length; index++) {
-            if(instructorID===instructors[index].id){
-                return instructors[index];
-            }            
-        }
-        return null;
-    }
+
 
     render(){
         const {lessons,instructors}= this.props;
@@ -28,7 +18,7 @@ class UserProfileLessonsList extends Component{
                 break;
             }
             let lesson= lessons[lessons.length-1-i];
-            let instructor= this.findInstructor(instructors,lesson.instructor_id);
+            let instructor= findInstructor(instructors,lesson.instructor_id);
             rows.push(
                 <Col key={lesson.id} sm={4}>
                     <UserProfileLessonsListComponent  lesson={lesson} instructor={instructor}/>
