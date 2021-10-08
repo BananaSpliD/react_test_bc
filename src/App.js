@@ -34,7 +34,6 @@ class App extends Component{
   //@param lessonsCheckedArray= Array que contiene la id de las clases que se tienen que reproducir
   playerStart(lessonsCheckedArray){
     this.setState({lessonsChecked:lessonsCheckedArray});
-    console.log(this.state)
     this.state.history.push("/lessons/"+lessonsCheckedArray[0]);
   }
   //Añade el estado de la clase a finalizado
@@ -44,7 +43,6 @@ class App extends Component{
     let lessons=this.state.data.training_classes;
     lessons[lessonIndex]= {...lessons[lessonIndex],finished:true};
     this.setState({training_classes:lessons});
-    console.log(this.state)
 
   }
 

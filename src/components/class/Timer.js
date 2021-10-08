@@ -47,8 +47,6 @@ class Timer extends Component {
       
       // Check if we're at zero.
       if (seconds === 0) { 
-        console.log(this.props.history.idLesson)
-        console.log(this.props.history,"asdasdadsasd")
         this.props.history.lessonFinished(this.props.history.idLesson);
         
         if(this.props.history.lessonsChecked.length>0){
