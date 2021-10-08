@@ -31,7 +31,6 @@ class Timer extends Component {
       this.setState({ time: timeLeftVar });
       this.startTimer();
     }
-  
     startTimer() {
       if (this.timer === 0 && this.state.seconds > 0) {
         this.timer = setInterval(this.countDown, 1000);
@@ -48,10 +47,21 @@ class Timer extends Component {
       
       // Check if we're at zero.
       if (seconds === 0) { 
-        clearInterval(this.timer);
+        console.log(this.props.history.idLesson)
+        console.log(this.props.history,"asdasdadsasd")
         this.props.history.lessonFinished(this.props.history.idLesson);
+        
+        if(this.props.history.lessonsChecked.length>0){
+          this.props.history.removeLesson(this.props.history.lessonsChecked[0]);
+        }
+        
+        if(this.props.history.lessonsChecked.length===0){
+          this.props.history.history.push(this.state.history.prevPath);
 
-        this.state.history.history.push(this.state.history.prevPath);
+        }else{
+          this.setState({time: this.secondsToTime(5), seconds: 5 });
+          this.props.history.history.push("/lessons/"+this.props.history.lessonsChecked[0]);
+        }
       }
     }
     componentWillUnmount(){

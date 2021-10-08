@@ -38,7 +38,6 @@ const Duration=(seconds)=>{
 
 //Componente de mostrar el card de la clase
 class ClassesListComponent extends Component{
-
     render(){
 
         const {lesson,instructor}= this.props;
