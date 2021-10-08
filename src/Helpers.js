@@ -11,6 +11,7 @@ export function  transformMillisecondsToDate(milliseconds,options){
 //@param instructorID= ID del instructor
 //@return el objeto instructor y en caso de que no sea encontrado devuelve null
 export function findInstructor(instructors, instructorID) {
+    
     for (let index = 0; index < instructors.length; index++) {
         if(instructorID===instructors[index].id){
             return instructors[index];
@@ -37,6 +38,19 @@ export function findLesson(lessonID,lessons) {
 export function findLessonIndex(lessonID,lessons) {
     for (let index = 0; index < lessons.length; index++) {
         if(lessonID.toString()===lessons[index].id.toString()){
+            return index;
+        }            
+    }
+    return -1;
+}
+
+//Dado una id se busca una clave asociada
+//@param lessonID= ID por el que se quiere buscar
+//@param lessons= array de datos
+//@return devuelve el índice de donde se encuentre el objeto o -1 en caso de que no se encuentre
+export function findIndex(id,array) {
+    for (let index = 0; index < array.length; index++) {
+        if(id===array[index]){
             return index;
         }            
     }

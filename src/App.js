@@ -5,11 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Route,Switch} from 'react-router-dom'
 import ClassesPage from './components/classes-list/ClassesPage';
 import Lesson from './components/class/Lesson';
-import { findLessonIndex } from './Helpers';
+import { findLessonIndex ,findIndex} from './Helpers';
 class App extends Component{
   constructor(props){
     super(props);
+    this.state={loaded:false,lessonsChecked:[]};
     this.lessonFinished=this.lessonFinished.bind(this);
+    this.lessonsChecked=this.lessonsChecked.bind(this);
   }
   componentDidMount(){
     this.initData();
@@ -23,7 +25,6 @@ class App extends Component{
       this.setState({loaded:true});
     });
   }
-  state={loaded:false};
 
   lessonFinished(lessonID){
 
@@ -33,6 +34,25 @@ class App extends Component{
     this.setState({training_classes:lessons});
 
   }
+  lessonsChecked(lessonID){
+    if(this.state.lessonsChecked.length===0){
+      this.setState({lessonsChecked:[lessonID]});
+
+    }else{
+
+      const lessonIndex=findIndex(lessonID,this.state.lessonsChecked);
+      let lessons=this.state.lessonsChecked;
+      if(lessonIndex=== -1){
+        lessons.push(lessonID);
+      }else{
+        lessons = lessons.splice(lessonIndex, 0) 
+      }
+      
+      this.setState({lessonsChecked:lessons});
+    }
+
+  }
+
   render(){    
     
     if(this.state.loaded===false){
@@ -49,7 +69,7 @@ class App extends Component{
               <Route path="/lessons-list">
 
 
-                <ClassesPage lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} />
+                <ClassesPage lessonsCheckedArray={this.state.lessonsChecked} lessonsChecked={this.lessonsChecked} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} />
                     
         
               </Route>

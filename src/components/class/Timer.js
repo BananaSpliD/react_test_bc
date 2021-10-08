@@ -3,7 +3,6 @@ import {Component} from "react"
 class Timer extends Component {
     constructor(props) {
       super(props);
-      console.log(props);
       this.state = { time: {}, seconds: props.time ,history:props.history};
       this.timer = 0;
       this.startTimer = this.startTimer.bind(this);

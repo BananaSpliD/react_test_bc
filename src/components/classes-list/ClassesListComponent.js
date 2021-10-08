@@ -4,6 +4,7 @@ import {Container,Row,Stack,Col} from 'react-bootstrap'
 import './ClassesListComponent.css'
 import {transformMillisecondsToDate} from '../../Helpers'
 import {Link} from "react-router-dom"
+
 //Hook para mostrar la dificultad
 //@param level el nivel de dificultad
 const LevelBars=(level)=>{    
@@ -43,11 +44,17 @@ class ClassesListComponent extends Component{
         const {lesson,instructor}= this.props;
         let parsedDate=transformMillisecondsToDate(lesson.published, {month: 'short', day: 'numeric' });
         return (
-        <Link className="noHyperLink" to={{pathname:"lessons/"+lesson.id,state: { prevPath: "/lessons-list" }}}>
+            
+    
 
             <Card className="lessonsCard">
-                <Card.Img variant="top" src={lesson.image} />
+                <Link className="noHyperLink" to={{pathname:"lessons/"+lesson.id,state: { prevPath: "/lessons-list" }}}>
+                    <Card.Img variant="top" src={lesson.image} />
+                </Link>
                 <Card.Title className="lessonsCardTitle">
+                <Stack direction="horizontal" gap={2}>
+                    <input type="checkbox"  onClick={()=>this.props.lessonsChecked(lesson.id)}/>
+                    
                     <Row className="justify-content-md-center">
                             <Container>
                                 <Row>
@@ -57,10 +64,15 @@ class ClassesListComponent extends Component{
                                     <span className="lessonListCardsInstructor">{instructor.name}</span>
                                 </Row>
                             </Container>
-                        </Row>
+                    </Row>
+                </Stack>
+
 
                 </Card.Title>
-
+                {   
+                    lesson.finished&&
+                    <Card.Subtitle className="bottom-left completed">COMPLETADA</Card.Subtitle>
+                }
                 <Card.Body className="cardBodyPadding">
                         <Row>
                             <Col>
@@ -75,7 +87,6 @@ class ClassesListComponent extends Component{
                         </Row>
                 </Card.Body>
             </Card>
-        </Link>
         )
 
     }

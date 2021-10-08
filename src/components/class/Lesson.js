@@ -6,7 +6,7 @@ import "./Lesson.css"
 import Timer from './Timer';
 const Player=(history,lessonFinished,idLesson)=>{
     return(
-        <div id="player" className="d-flex align-items-centehistoryr">
+        <div id="player" className="d-flex align-items-center">
             <Timer time="5" idLesson={idLesson} history={history} lessonFinished={lessonFinished}/>
         </div>
     );

@@ -10,7 +10,6 @@ class ClassesList extends Component{
     render(){
         
         const {lessons,instructors}= this.props;
-        console.log(lessons)
         let rows=[];
         //Iteramos el número de clases que queremos, cogiendo las últimas clases y lo añadimos al array de rows.
         //TODO:Se puede extraer con hooks?
@@ -20,7 +19,7 @@ class ClassesList extends Component{
             let instructor= findInstructor(instructors,lesson.instructor_id);
             rows.push(
                 <Col key={lesson.id} sm={4} style={{ marginTop: '1rem' }}>
-                    <ClassesListComponent  lessonFinished={this.lessonFinished} lesson={lesson} instructor={instructor}/>
+                    <ClassesListComponent  lessonsChecked={this.props.lessonsChecked} lesson={lesson} instructor={instructor}/>
                 </Col>
             );
         }

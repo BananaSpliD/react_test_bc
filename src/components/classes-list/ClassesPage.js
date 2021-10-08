@@ -9,19 +9,20 @@ import ClassesList from './ClassesList'
 class ClassesPage extends Component{
 
     render(){
-        const {lessons,instructors}= this.props;
+        const {lessons,instructors,lessonsCheckedArray}= this.props;
+        console.log(lessonsCheckedArray,"aa")
         return (
             <Container>
                 <Row>
                     <Col className="text-end">
-                        <Button variant="secondary">
-                            <img alt="play" src="play.png"/>
-                            <span> REPRODUCIR AUTOMÁTICAMENTE</span>
+                        <Button disabled={lessonsCheckedArray.length===0?true:false} variant="secondary">
+
+                                <span > REPRODUCIR AUTOMÁTICAMENTE</span>
                         </Button>
                     </Col>                    
                 </Row>
                 <Row>
-                    <ClassesList lessons={lessons} instructors={instructors}/>
+                    <ClassesList lessonsChecked={this.props.lessonsChecked} lessons={lessons} instructors={instructors}/>
                 </Row>
             </Container>
         );
