@@ -12,7 +12,7 @@ class App extends Component{
   constructor(props){
     super(props);
     
-    this.state={loaded:false,lessonsChecked:[],history:props.history};
+    this.state={loaded:false,lessonsChecked:[],history:props.history,time:0};
     this.lessonFinished=this.lessonFinished.bind(this);
     this.removeLesson=this.removeLesson.bind(this);
     this.playerStart=this.playerStart.bind(this);
@@ -62,26 +62,32 @@ class App extends Component{
     return (
       <div>
         
-        <Layout>
 
             <Switch>
-              <Route path="/lessons/:idLesson" render={(props) => <Lesson {...props} lessonsChecked={this.state.lessonsChecked} lessonFinished={this.lessonFinished} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} removeLesson={this.removeLesson}/>}>
-              </Route>
-              <Route path="/lessons-list">
+              <Route path="/suscription/:idUser" component={Api} >
+                 </Route>
+              
+
+              <Layout time={this.state.time}>
+
+                <Route path="/lessons/:idLesson" render={(props) => <Lesson {...props} lessonsChecked={this.state.lessonsChecked} lessonFinished={this.lessonFinished} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} removeLesson={this.removeLesson}/>}>
+                </Route>
+                <Route path="/lessons-list">
 
 
-                <ClassesPage playerStart={this.playerStart} lessonsCheckedArray={this.state.lessonsChecked} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} />
-                    
-        
-              </Route>
-              <Route path="/">
+                  <ClassesPage playerStart={this.playerStart} lessonsCheckedArray={this.state.lessonsChecked} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} />
+                      
+          
+                </Route>
+                <Route path="/">
 
-                <UserProfile lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} user={this.state.data.profile} />          
+                  <UserProfile lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} user={this.state.data.profile} />          
 
-        
-              </Route>
+          
+                </Route>
+              </Layout>
+
             </Switch>
-            </Layout>
 
       </div>
     );

@@ -8,7 +8,7 @@ class Layout extends Component{
         const main= window.location.pathname==="/";
         return (
             <div>
-        <Navigationbar main={main}/>
+        <Navigationbar main={main} time={this.props.time}/>
 
         <div id="layout" className={main===true?"layoutBgBlack":"layoutBgGrey"}>
             <Container>

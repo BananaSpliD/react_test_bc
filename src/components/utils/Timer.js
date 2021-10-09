@@ -1,9 +1,9 @@
 import {Component} from "react"
-//
+//Componente que muestra la cuenta atrás
 class Timer extends Component {
     constructor(props) {
       super(props);
-      this.state = { time: {}, seconds: props.time ,history:props.history};
+      this.state = { time: {}, seconds: props.time};
       this.timer = 0;
       this.startTimer = this.startTimer.bind(this);
       this.countDown = this.countDown.bind(this);
@@ -47,19 +47,9 @@ class Timer extends Component {
       
       // Check if we're at zero.
       if (seconds === 0) { 
-        this.props.history.lessonFinished(this.props.history.idLesson);
-        
-        if(this.props.history.lessonsChecked.length>0){
-          this.props.history.removeLesson(this.props.history.lessonsChecked[0]);
-        }
-        
-        if(this.props.history.lessonsChecked.length===0){
-          this.props.history.history.push(this.state.history.prevPath);
-
-        }else{
-          this.setState({time: this.secondsToTime(5), seconds: 5 });
-          this.props.history.history.push("/lessons/"+this.props.history.lessonsChecked[0]);
-        }
+        console.log(this.props)
+        this.setState({time: this.secondsToTime(5), seconds: 5 });
+        this.props.timerFinished();
       }
     }
     componentWillUnmount(){

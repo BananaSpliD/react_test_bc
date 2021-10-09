@@ -3,11 +3,32 @@ import {Container,Row,Col,Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {findInstructor,findLesson} from "../../Helpers"
 import "./Lesson.css"
-import Timer from './Timer';
+import Timer from '../utils/Timer';
+//Componente para devolver el reproductor 
+//@param history= devuelve el objeto history que contiene la propiedad history y los datos que se le pasan por parámetro
 const Player=(history)=>{
+    /** 
+        Función que se llama cuando finaliza la cuenta atrás del reproductor y
+        este lo que hace es que llama a la función del padre para marcar como que la clase ha finalizado
+        borrarlo del array de clases que se tienen que reproducir y reproducir la siguiente clase o volver atrás
+    */
+    const timerFinished=()=>{
+        history.lessonFinished(history.idLesson);
+        
+        if(history.lessonsChecked.length>0){
+            history.removeLesson(history.lessonsChecked[0]);
+        }
+        
+        if(history.lessonsChecked.length===0){
+          history.history.push(history.prevPath);
+
+        }else{
+          history.history.push("/lessons/"+history.lessonsChecked[0]);
+        }
+    }
     return(
         <div id="player" className="d-flex align-items-center">
-            <Timer time="5" history={history} />
+            <Timer time="5" timerFinished={timerFinished} />
         </div>
     );
 

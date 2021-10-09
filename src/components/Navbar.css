@@ -6,3 +6,6 @@
     padding:50px;
     background-color: #000000;
 }
+#root > div > div > nav > div{
+    display:block;
+}
