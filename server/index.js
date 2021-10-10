@@ -8,6 +8,8 @@ var cors = require('cors')
 app.use(bp.json())
 app.use(cors())
 
+app.options('*', cors()) 
+
 //obtener un item dado su id
 //asumimos que el id está en un parámetro HTTP del mismo nombre
 //es decir, habrá que hacer una petición a /obtener?id=XXX
@@ -34,15 +36,23 @@ app.get("/suscriptions/:idUsuario", function(pet, resp){
 })
 
 app.post("/suscriptions", function(pet, resp){
-    
     var idUsuario=pet.body.idUsuario;
     var time=pet.body.time;
     var renovate=pet.body.renovate;
-    if (idUsuario&&time&&renovate) {
-        var obj = {idUsuario:idUsuario, timeInit:new Date(), time:time,renovate:renovate}
-        lista.set(idUsuario,obj)
-        resp.status(201)
-        resp.send(obj)
+    console.log(idUsuario)
+    if (idUsuario&&time) {
+        console.log(lista,idUsuario)
+        if(lista.get(idUsuario)){
+            
+            resp.status(400)
+            resp.send({mensaje:"Usuario ya tiene una suscripción"})
+        }else{
+            
+            var obj = {idUsuario:idUsuario, timeInit:new Date(), time:time,renovate:renovate}
+            lista.set(idUsuario,obj)
+            resp.status(201)
+            resp.send(obj)
+        }
     }
     else {
         resp.status(400)
