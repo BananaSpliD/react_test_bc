@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Route,Switch} from 'react-router-dom'
 import ClassesPage from './components/classes-list/ClassesPage';
 import Lesson from './components/class/Lesson';
-import { findLessonIndex } from './Helpers';
-
+import { findLessonIndex, apiCallGet } from './Helpers';
+import SuscriptionPage from './components/suscription/SuscriptionPage';
 class App extends Component{
 
   constructor(props){
@@ -23,11 +23,20 @@ class App extends Component{
   }
   //Llamada a la API para cargar los datos
   initData= ()=>{
-    fetch('https://bestcycling-public.s3.eu-west-1.amazonaws.com/api-test/db.json')
-    .then(response => response.json())
-    .then(data => {
+    apiCallGet('https://bestcycling-public.s3.eu-west-1.amazonaws.com/api-test/db.json').then(data => {
       this.setState({data});      
-      this.setState({loaded:true});
+      this.setState({loaded:true});      
+    });
+    //La api no devuelve un id de usuario
+    const userID=1;
+    apiCallGet('http://127.0.0.1:3001/suscriptions/'+userID).then(data => {
+      /**Cogemos la fecha de inicio, menos la fecha actual para saber el tiempo que ha pasado desde la suscripción
+       * y luego se lo restamos por el tiempo de la suscripción que ha contratado
+       * 
+      */
+      var time = data.time-parseInt((new Date().getTime()-new Date(data.timeInit).getTime()) / 1000);
+      time=time?time:0;
+      this.setState({time});
     });
   }
   //Comienza la reproducción automática
@@ -64,12 +73,10 @@ class App extends Component{
         
 
             <Switch>
-              <Route path="/suscription/:idUser" component={Api} >
-                 </Route>
               
 
               <Layout time={this.state.time}>
-
+                <Route path="/suscriptions/:idUser" render={(props) => <SuscriptionPage {...props} />}></Route>
                 <Route path="/lessons/:idLesson" render={(props) => <Lesson {...props} lessonsChecked={this.state.lessonsChecked} lessonFinished={this.lessonFinished} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} removeLesson={this.removeLesson}/>}>
                 </Route>
                 <Route path="/lessons-list">
@@ -79,7 +86,7 @@ class App extends Component{
                       
           
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
 
                   <UserProfile lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} user={this.state.data.profile} />          
 

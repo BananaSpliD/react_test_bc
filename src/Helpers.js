@@ -56,3 +56,16 @@ export function findIndex(id,array) {
     }
     return -1;
 }
+export function apiCallGet(url){
+    return fetch(url).then(response => response.json());
+}
+export function postSuscription(idUsuario,time,renovate){
+    return fetch("localhost:3001/suscriptions", {
+        method: 'POST',
+        headers: {
+          'Content-type':'application/json'
+        },
+        body: JSON.stringify(time,idUsuario,renovate)          
+    }).then(response => response.json());
+
+}
