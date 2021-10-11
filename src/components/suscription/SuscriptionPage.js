@@ -8,6 +8,10 @@ class SuscriptionPage extends Component{
         this.state={checkboxValue:props.renovate?true:false}
 
     }
+       /**
+        * Función encargada de hacer la llamada a la api para guardar la suscripción en la api
+        * @param time = tiempo en segundos que va a durar la suscripción
+        */
     save = (time) => {
        postSuscription(1,time,this.state.checkboxValue).then(data=>{
            if(data.mensaje){
@@ -18,14 +22,17 @@ class SuscriptionPage extends Component{
            }
        });        
     }
+    /**
+     * Función encargada de cambiarle el valor al checkbox y guardarlo en el estado
+     * @param {} event 
+     */
     handleInputChange=(event)=> {
         const target = event.target;
         const value =target.checked;
     
         this.setState({
             checkboxValue: value
-        });
-        console.log(value)
+        });        
       }
     render(){
 

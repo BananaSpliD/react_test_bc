@@ -73,7 +73,6 @@ export function apiCallGet(url){
  * @returns devuelve la respuesta del servidor
 */
 export function postSuscription(idUsuario,time,renovate){
-    console.log({time:time,idUsuario:idUsuario,renovate:renovate});
     return fetch(url+"suscriptions/", {
         method: 'POST',
         headers: {

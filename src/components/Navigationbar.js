@@ -6,31 +6,46 @@ import Timer from './utils/Timer';
 import { renovateSuscription } from '../Helpers';
 //Componente de navbar
 const Suscription=(props)=>{
-    const timerFinished=()=>{
-        if(props.props.renovate){
+    /**
+     * Función encargada de gestionar que sucede cuando el contador del navbar llega al final y tiene activado la opción de autorenovar
+     */
+    const timerFinishedRenovate=()=>{
             renovateSuscription(1).then(data=>{
                 props.props.suscriptionRenovated(data.time,data.timeInit,data.renovate)                
             })
-
-        }else{
+    }
+    /**
+     * Función encargada de gestionar que sucede cuando el contador del navbar llega al final y no tiene activado la opción de autorenovar
+     */
+    const timerFinished=()=>{
+        if(!props.props.renovate){
             props.props.deleteSuscription(1);
+        }else{
+            props.props.setSuscriptionTime(0);
         }
         
-        
+
     }
     return(
         <div>
             
             {props.time<=0?
-                
+                (props.props.renovate?
+                    
+                    <Button variant="warning" onClick={timerFinishedRenovate}>
+                    {
+                        "RENOVACIÓN PENDIENTE"
+                    }
+                    </Button>
+                :
                 <Link to="/suscriptions/1">
                     
                     <Button variant="warning">
                     {
-                        props.props.renovate?"RENOVACIÓN PENDIENTE":"SUSCRÍBETE"
+                        "SUSCRÍBETE"
                     }
                     </Button>
-                </Link>:
+                </Link>):
                 <span>
                     <Timer time={ props.time} timerFinished={timerFinished} resetTimer={false}/>
                 </span>

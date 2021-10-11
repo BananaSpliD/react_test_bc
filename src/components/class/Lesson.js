@@ -14,12 +14,10 @@ const Player=(history)=>{
     */
     const timerFinished=()=>{
         history.lessonFinished(history.idLesson);
-        
-        if(history.lessonsChecked.length>0){
+        if(history.lessonsChecked&&history.lessonsChecked.length>0){
             history.removeLesson(history.lessonsChecked[0]);
         }
-        
-        if(history.lessonsChecked.length===0){
+        if(!history.lessonsChecked||history.lessonsChecked.length===0){
           history.history.push(history.prevPath);
 
         }else{
@@ -35,9 +33,9 @@ const Player=(history)=>{
 }
 //Componente de mostrar la información de la clase individual
 class Lesson extends Component{
-
     render(){
         const {lessons,instructors}=this.props;
+ 
         const prevPath=this.props.location.state&&this.props.location.state.prevPath?this.props.location.state.prevPath:"/";
 
         const lesson=findLesson(this.props.match.params.idLesson,lessons);
