@@ -39,9 +39,7 @@ app.post("/suscriptions", function(pet, resp){
     var idUsuario=pet.body.idUsuario;
     var time=pet.body.time;
     var renovate=pet.body.renovate;
-    console.log(idUsuario)
     if (idUsuario&&time) {
-        console.log(lista,idUsuario)
         if(lista.get(idUsuario)){
             
             resp.status(400)
@@ -59,7 +57,23 @@ app.post("/suscriptions", function(pet, resp){
         resp.send({mensaje:"Falta algún campo"})
     }
 }) 
-
+app.post("/renovatesuscription/:idUsuario", function(pet, resp){
+    let idUsuario= parseInt(pet.params.idUsuario)
+    if(lista.get(idUsuario)){
+        if (idUsuario) {
+            let item=lista.get(idUsuario);
+            item.timeInit=new Date();            
+            lista.set(idUsuario,item)
+            resp.status(200)
+            console.log(item)
+            resp.send(item)
+        }
+        else {
+            resp.status(400)
+            resp.send({mensaje:"Falta algún campo"})
+        }
+    }
+}) 
 app.delete('/suscriptions/:id', function(pet, resp){
     var id = parseInt(pet.params.id)
     //si no es un número, error
@@ -70,6 +84,7 @@ app.delete('/suscriptions/:id', function(pet, resp){
     else {
         //borramos el item del Map
         var dato = lista.delete(id)
+
         //si != undefined es que estaba, y lo hemos borrado
         if (dato) {
             resp.status(200)
