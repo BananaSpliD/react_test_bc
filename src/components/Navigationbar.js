@@ -3,12 +3,25 @@ import {Navbar,Button,Container,Col,Row} from 'react-bootstrap';
 import './Navbar.css';
 import {Link} from 'react-router-dom'
 import Timer from './utils/Timer';
+import { renovateSuscription } from '../Helpers';
 //Componente de navbar
 const Suscription=(props)=>{
+    const timerFinished=()=>{
+        if(props.props.renovate){
+            renovateSuscription(1).then(data=>{
+                props.props.suscriptionRenovated(data.time,data.timeInit,data.renovate)                
+            })
+
+        }else{
+            props.props.deleteSuscription(1);
+        }
+        
+        
+    }
     return(
         <div>
             
-            {props.props.time<=0?
+            {props.time<=0?
                 
                 <Link to="/suscriptions/1">
                     
@@ -19,7 +32,7 @@ const Suscription=(props)=>{
                     </Button>
                 </Link>:
                 <span>
-                    <Timer time={props.props.time} />
+                    <Timer time={ props.time} timerFinished={timerFinished} resetTimer={false}/>
                 </span>
             }    
         </div>
@@ -27,7 +40,6 @@ const Suscription=(props)=>{
     )
 }
 class Navigationbar extends Component{
-    
     render(){
         const {main}=this.props;
         return(
@@ -41,7 +53,7 @@ class Navigationbar extends Component{
                             </Link>
                         </Col>
                         <Col className="text-end">
-                                <Suscription props={this.props}/>
+                                <Suscription  props={this.props} time={this.props.time}/>
                         </Col>
 
                     </Row>

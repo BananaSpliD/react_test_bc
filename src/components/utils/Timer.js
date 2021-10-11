@@ -46,8 +46,8 @@ class Timer extends Component {
       });
       
       // Check if we're at zero.
-      if (seconds === 0) { 
-        this.setState({time: this.secondsToTime(5), seconds: 5 });
+      if (seconds <= 0) { 
+        this.setState({time: this.secondsToTime(this.props.time), seconds: this.props.time });
         this.props.timerFinished();
       }
     }
