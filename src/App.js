@@ -2,17 +2,41 @@ import { Component } from 'react';
 import UserProfile from './components/profile/UserProfile'
 import Layout from './components/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Route,Switch} from 'react-router-dom'
+import {Route,Switch,Redirect} from 'react-router-dom'
 import ClassesPage from './components/classes-list/ClassesPage';
 import Lesson from './components/class/Lesson';
-import { findLessonIndex, apiCallGet, calculateTimeLeft,deleteSuscription } from './Helpers';
+import { findLessonIndex, apiCallGet, calculateTimeLeft,deleteSuscription, renovateSuscription} from './Helpers';
 import SuscriptionPage from './components/suscription/SuscriptionPage';
+/**
+ * Componente que sirve para comprobar si está suscrito o no para acceder al vídeo
+ * @param time = tiempo de suscripción
+ * @param renovate = si tiene autorenovación
+ * @param suscriptionRenovated= función para renovar la suscripción
+ * @param lessonsChecked= cola de clases que se tienen que reproducir en orden
+ * @returns devuelve la url de la página a la que se va a redirigir
+ */
+const PrivateRoute = ({ time,renovate,suscriptionRenovated,lessonsChecked, ...rest}) =>{
+  if(time<=0 && renovate){
+    renovateSuscription(1).then(data=>{
+        suscriptionRenovated(data.time,data.timeInit,data.renovate)                
+    })
+  }
+  return ( <Route exact
+    {...rest}
+    
+      render={(props) =>  
+        time>0
+        ? <Lesson {...props} lessonsChecked={lessonsChecked} lessonFinished={rest.lessonFinished} lessons={rest.lessons}  instructors={rest.instructors} removeLesson={rest.removeLesson}/>
+        : <Redirect to='/suscriptions/1'/>}
+    />
+  )
+}
 class App extends Component{
 
   constructor(props){
     super(props);
     
-    this.state={loaded:false,lessonsChecked:[],history:props.history,time:0,loaded2:false};
+    this.state={loaded:false,lessonsChecked:[],history:props.history,time:0,loaded2:false,suscriptionIsValid:true};
     this.lessonFinished=this.lessonFinished.bind(this);
     this.removeLesson=this.removeLesson.bind(this);
     this.playerStart=this.playerStart.bind(this);
@@ -57,15 +81,25 @@ class App extends Component{
     let lessons=this.state.data.training_classes;
     lessons[lessonIndex]= {...lessons[lessonIndex],finished:true};
     this.setState({training_classes:lessons});
-
+    this.setState({playerReproducing:false});
+    if(this.state.time<0){
+      this.setState({suscriptionIsValid:false})
+    }
   }
+  /**
+   * Hace una llamada a la api para borrar la suscripción
+   * @param idSuscription = id del usuario que se va a eliminar la suscripción
+   */
   deleteSuscription=(idSuscription)=>{
     deleteSuscription(idSuscription);
     this.setState({time:0});
     this.setState({renovate:false});      
-    
 
   }
+  /**
+   * Cambia el estado del tiempo de la suscripción
+   * @param time = tiempo en segundos
+   */
   setSuscriptionTime=(time)=>{
     this.setState({time:time});
   }
@@ -80,20 +114,26 @@ class App extends Component{
     this.setState({lessonsChecked:lessons});
 
   }
-  
+  /**
+   * Función encargada de calcular el tiempo que queda de suscripción y ponerla de estado
+   * @param {} timeRenovation = tiempo que renueva la suscripción ( en segundos)
+   * @param {*} timeInit = fecha de comienzo en que se renueva la suscripción
+   * @param {*} renovated = si tiene el autorenovado
+   */
   suscriptionRenovated=(timeRenovation,timeInit,renovated)=>{
     let time = calculateTimeLeft(timeRenovation,timeInit);
     let renovate=renovated;
     time=time?time:0;
     this.setState({time});
     this.setState({renovate});
+    this.setState({suscriptionIsValid:true})
   }
 
   render(){    
     const renovate=this.state.renovate;
     if(this.state.loaded===false||this.state.loaded2===false){
       return null;
-    }    
+    }
     return (
       <div>
         
@@ -102,11 +142,12 @@ class App extends Component{
               
 
               <Layout renovate={this.state.renovate} time={this.state.time} setSuscriptionTime={this.setSuscriptionTime} suscriptionRenovated={this.suscriptionRenovated} deleteSuscription={this.deleteSuscription}>
+              <PrivateRoute time={this.state.time}  suscriptionRenovated={this.suscriptionRenovated} renovate={this.state.renovate} path='/lessons/:idLesson' lessonsChecked={this.state.lessonsChecked} lessonFinished={this.lessonFinished} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} removeLesson={this.removeLesson} />
+
                 <Route path="/suscriptions/:idUser" render={(props) =>
 
                    <SuscriptionPage {...props} renovate={renovate} suscriptionRenovated={this.suscriptionRenovated} />}></Route>
-                <Route path="/lessons/:idLesson" render={(props) => <Lesson {...props} lessonsChecked={this.state.lessonsChecked} lessonFinished={this.lessonFinished} lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} removeLesson={this.removeLesson}/>}>
-                </Route>
+
                 <Route path="/lessons-list">
 
 
@@ -114,11 +155,11 @@ class App extends Component{
                       
           
                 </Route>
+
                 <Route exact path="/">
 
                   <UserProfile lessons={this.state.data.training_classes}  instructors={this.state.data.instructors} user={this.state.data.profile} />          
 
-          
                 </Route>
               </Layout>
 

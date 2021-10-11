@@ -8,14 +8,14 @@ class Layout extends Component{
         const main= window.location.pathname==="/";
         return (
             <div>
-        <Navigationbar main={main} setSuscriptionTime={this.props.setSuscriptionTime} renovate={this.props.renovate} time={this.props.time} suscriptionRenovated={this.props.suscriptionRenovated} deleteSuscription={this.props.deleteSuscription} />
+                <Navigationbar main={main} setSuscriptionTime={this.props.setSuscriptionTime} renovate={this.props.renovate} time={this.props.time} suscriptionRenovated={this.props.suscriptionRenovated} deleteSuscription={this.props.deleteSuscription} />
 
-        <div id="layout" className={main===true?"layoutBgBlack":"layoutBgGrey"}>
-            <Container>
-                {this.props.children}
-            </Container>
-        </div>
-        </div>
+                <div id="layout" className={main===true?"layoutBgBlack":"layoutBgGrey"}>
+                    <Container>
+                        {this.props.children}
+                    </Container>
+                </div>
+            </div>
         )
     }
 }

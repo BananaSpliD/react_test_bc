@@ -6,16 +6,21 @@ import Timer from './utils/Timer';
 import { renovateSuscription } from '../Helpers';
 //Componente de navbar
 const Suscription=(props)=>{
+    /**
+     * Función encargada de gestionar que sucede cuando el contador del navbar llega al final y tiene activado la opción de autorenovar
+     */
     const timerFinishedRenovate=()=>{
             renovateSuscription(1).then(data=>{
                 props.props.suscriptionRenovated(data.time,data.timeInit,data.renovate)                
             })
     }
+    /**
+     * Función encargada de gestionar que sucede cuando el contador del navbar llega al final y no tiene activado la opción de autorenovar
+     */
     const timerFinished=()=>{
         if(!props.props.renovate){
             props.props.deleteSuscription(1);
         }else{
-            console.log(props)
             props.props.setSuscriptionTime(0);
         }
         

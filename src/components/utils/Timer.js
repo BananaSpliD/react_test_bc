@@ -31,12 +31,17 @@ class Timer extends Component {
       this.setState({ time: timeLeftVar });
       this.startTimer();
     }
+    /**
+     * Función encargada de poner en marcha el contador
+     */
     startTimer() {
       if (this.timer === 0 && this.state.seconds > 0) {
         this.timer = setInterval(this.countDown, 1000);
       }
     }
-  
+    /**
+     * Función encargada de restarle segundos al contador
+     */
     countDown() {
       // Remove one second, set state so a re-render happens.
       let seconds = this.state.seconds - 1;
