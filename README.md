@@ -1,3 +1,22 @@
+# Puesta en marcha
+Para ejecutarlo es simplemente poniendo el comando desde la carpeta del servidor npm start.
+Y para lanzar el proyecto React, he usado el gestor de paquetes de yarn. Así que sería yarn start.
+# API
+Para la parte del ejercicio 3 la api he creado un miniservidor utilizando nodejs mediante la librería de express.
+# Librerías/frameworks de react
+  - React-bootstrap: Para la parte de diseño de la interfaz lo he realizado con este framework
+  - React-router-doom: Usado para todo el tema de routing, redirects, etc.
+# Cosas por terminar
+  - Me ha faltado por pulir la última parte del ejercicio 3, la parte de que se autorenueva la suscripción al terminar la clase.
+  - Buscar buggs en la parte del middleware. He visto que funciona, pero debería probarlo más a fondo
+# Cosas por mejorar
+  - Pienso que se puede refactorizar un poco mejor el código, sobretodo el archivo de App.js sacar las funciones.
+  - Uso de hooks, he estado mirando y el uso de hooks deja el código más limpio. No lo he implementado antes porque se vé que hay como ciertas incompatibilidades entre componentes y hooks. Por lo que me llevaría más tiempo solo adaptarlo y no tenía mucho más.
+  - Mejorar algunos nombres de algunas clases (Nombres poco intuitivos)
+# Cosas por hacer
+  - Investigar más librerías como podrían ser Redux o nextjs.
+ 
+  
 # Prueba técnica de React
 
 - [Prueba técnica de React](#prueba-técnica-de-react)
