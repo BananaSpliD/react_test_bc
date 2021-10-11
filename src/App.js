@@ -18,6 +18,7 @@ class App extends Component{
     this.playerStart=this.playerStart.bind(this);
     this.suscriptionRenovated=this.suscriptionRenovated.bind(this);
     this.deleteSuscription=this.deleteSuscription.bind(this);
+    this.setSuscriptionTime=this.setSuscriptionTime.bind(this);
   }
   componentDidMount(){
     this.initData();
@@ -65,6 +66,9 @@ class App extends Component{
     
 
   }
+  setSuscriptionTime=(time)=>{
+    this.setState({time:time});
+  }
   /**Busca y elimina del array de lessons la clase que ha sido seleccionada
    * @param lessonID= ID de la clase
    */
@@ -97,7 +101,7 @@ class App extends Component{
             <Switch>
               
 
-              <Layout renovate={this.state.renovate} time={this.state.time} suscriptionRenovated={this.suscriptionRenovated} deleteSuscription={this.deleteSuscription}>
+              <Layout renovate={this.state.renovate} time={this.state.time} setSuscriptionTime={this.setSuscriptionTime} suscriptionRenovated={this.suscriptionRenovated} deleteSuscription={this.deleteSuscription}>
                 <Route path="/suscriptions/:idUser" render={(props) =>
 
                    <SuscriptionPage {...props} renovate={renovate} suscriptionRenovated={this.suscriptionRenovated} />}></Route>

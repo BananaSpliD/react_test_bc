@@ -6,31 +6,41 @@ import Timer from './utils/Timer';
 import { renovateSuscription } from '../Helpers';
 //Componente de navbar
 const Suscription=(props)=>{
-    const timerFinished=()=>{
-        if(props.props.renovate){
+    const timerFinishedRenovate=()=>{
             renovateSuscription(1).then(data=>{
                 props.props.suscriptionRenovated(data.time,data.timeInit,data.renovate)                
             })
-
-        }else{
+    }
+    const timerFinished=()=>{
+        if(!props.props.renovate){
             props.props.deleteSuscription(1);
+        }else{
+            console.log(props)
+            props.props.setSuscriptionTime(0);
         }
         
-        
+
     }
     return(
         <div>
             
             {props.time<=0?
-                
+                (props.props.renovate?
+                    
+                    <Button variant="warning" onClick={timerFinishedRenovate}>
+                    {
+                        "RENOVACIÓN PENDIENTE"
+                    }
+                    </Button>
+                :
                 <Link to="/suscriptions/1">
                     
                     <Button variant="warning">
                     {
-                        props.props.renovate?"RENOVACIÓN PENDIENTE":"SUSCRÍBETE"
+                        "SUSCRÍBETE"
                     }
                     </Button>
-                </Link>:
+                </Link>):
                 <span>
                     <Timer time={ props.time} timerFinished={timerFinished} resetTimer={false}/>
                 </span>
