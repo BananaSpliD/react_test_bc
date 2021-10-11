@@ -1,0 +1,17 @@
+.suscriptionTitle{
+    font-size: 3rem;
+    color:white;
+    font-style: bold;
+}
+.suscriptionCheckbox{
+    color:gray;
+    font-size: 1rem;
+}
+#layout > div > div > div.justify-content-md-center.hstack.gap-3 > button{
+    height: 15rem;
+    width: 30rem;
+    background-color: white;
+    border-color: orange;
+    font-size: 30px;
+    font-weight: bold;
+}

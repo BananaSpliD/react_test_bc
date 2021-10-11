@@ -28,7 +28,7 @@ const Player=(history)=>{
     }
     return(
         <div id="player" className="d-flex align-items-center">
-            <Timer time="5" timerFinished={timerFinished} />
+            <Timer time="5" timerFinished={timerFinished} resetTimer={true} />
         </div>
     );
 
